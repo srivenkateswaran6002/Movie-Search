@@ -10,6 +10,7 @@ export default function Home() {
     const [movies, setMovies] = useState([])
     const [error , setError] = useState(null)
     const [loading , setLoading] = useState(true)
+    const [clear , setClear] = useState(true)
 
 
     useEffect( () => {
@@ -31,7 +32,7 @@ export default function Home() {
 
         loadMovies()
 
-    } , [])
+    } , [clear])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -57,9 +58,10 @@ export default function Home() {
     return (
         <>
             <div className="home">
-                <form onSubmit={(e) => handleSubmit(e)} className="search-form" >
+                <form className="search-form" >
                     <input type="text" placeholder="Search For Movies..." className="search-input" value={searchQuery} onChange={(e) => {setSearchQuery(e.target.value)}} />
-                    <button type="submit" className="search-button">Search</button>
+                    <button onClick={(e) => handleSubmit(e)} className="search-button">Search</button>
+                    <button className="search-button" onClick={() => setClear(!clear)}>Clear</button>
                 </form>
 
                 {error && <div className="error-message">{error}</div>}

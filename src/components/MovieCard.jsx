@@ -7,7 +7,6 @@ export default function MovieCard({movie}){
     const [star , setStar] = useState("⭐")
 
     function favorite(){
-        alert("Favorite Button Clicked!")
         if (star == "⭐") {
             setStar("🌟")
         }
