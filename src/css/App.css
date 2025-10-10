@@ -1,8 +1,58 @@
-.main-content {
+/* .main-content {
   flex: 1;
   padding: 2rem;
   box-sizing: border-box;
   width: 100%;
   display: flex;
   flex-direction: column;
+} */
+
+
+
+/* ====== App Layout ====== */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+
+  /* Remove the boxed look */
+  padding: 0;
+  background: none;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* ====== Smooth Page Transitions (optional) ====== */
+.page-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* ====== Scrollbar ====== */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e50914;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff1f1f;
+}
+
+/* ====== Responsive ====== */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 0;
+  }
 }

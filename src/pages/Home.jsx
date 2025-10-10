@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import MovieCard from "../components/MovieCard"
 import "../css/Home.css"
-import { getPopularMovies } from "../services/api"
+import { getPopularMovies, searchMovies } from "../services/api"
 
 
 export default function Home() {
@@ -33,10 +33,23 @@ export default function Home() {
 
     } , [])
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-
-
+        if(!searchQuery.trim() || loading) return
+        
+        setLoading(true)
+        try {
+            const results = await searchMovies(searchQuery)
+            setMovies(results)
+            setError(null)
+        }
+        catch(err) {
+            console.log(err)
+            setError("Failed to set movies...")
+        }
+        finally {
+            setLoading(false)
+        }
 
         setSearchQuery("")
     }

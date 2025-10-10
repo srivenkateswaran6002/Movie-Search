@@ -1,4 +1,4 @@
-.home {
+/* .home {
   padding: 2rem 0;
   width: 100%;
   box-sizing: border-box;
@@ -59,11 +59,135 @@
   }
 }
 
-.movies-grid {
+.movie-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.5rem;
   padding: 1rem;
   width: 100%;
   box-sizing: border-box;
+} */
+
+
+/* ====== Home Page Styling ====== */
+.home {
+  padding: 2rem 0;
+  width: 100%;
+  box-sizing: border-box;
+  background: linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 100%);
+  min-height: 100vh;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ====== Search Form ====== */
+.search-form {
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  display: flex;
+  gap: 1rem;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+.search-input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 6px;
+  background-color: #333;
+  color: white;
+  font-size: 1rem;
+  transition: box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #e50914;
+  background-color: #444;
+}
+
+.search-button {
+  padding: 0.75rem 1.5rem;
+  background-color: #e50914;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  white-space: nowrap;
+}
+
+.search-button:hover {
+  background-color: #ff1f1f;
+  transform: scale(1.05);
+}
+
+/* ====== Loading Animation ====== */
+.loading {
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.8rem;
+  color: #e50914;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ====== Error Message ====== */
+.error-message {
+  text-align: center;
+  color: #ff4d4d;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  font-family: 'Arial', sans-serif;
+}
+
+/* ====== Movie Grid ====== */
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  place-items: center;
+  transition: all 0.3s ease;
+}
+
+/* ====== Responsive Adjustments ====== */
+@media (max-width: 639px) {
+  .home {
+    padding: 1rem 0;
+  }
+
+  .search-form {
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .search-form {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .search-button {
+    width: 100%;
+  }
+
+  .search-input {
+    font-size: 0.95rem;
+  }
 }
