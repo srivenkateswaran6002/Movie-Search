@@ -33,9 +33,11 @@ export default function Home() {
 
     } , [])
 
-    function handleSubmit(e) {
+    const handleSubmit = (e) => {
         e.preventDefault()
-        alert(`Searched : ${searchQuery}`)
+
+
+
         setSearchQuery("")
     }
 
@@ -47,11 +49,15 @@ export default function Home() {
                     <button type="submit" className="search-button">Search</button>
                 </form>
 
-                <div className="movie-grid">
-                    {movies.map((x) => {
-                        return <MovieCard movie={x} key={x.id} />
-                    })}
-                </div>
+                {error && <div className="error-message">{error}</div>}
+
+                {loading ? <div className="loading" >Loading...</div> : 
+                    <div className="movie-grid">
+                        {movies.map((x) => {
+                            return <MovieCard movie={x} key={x.id} />
+                        })}
+                    </div>
+                }
 
             </div>
         </>
