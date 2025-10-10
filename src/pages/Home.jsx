@@ -1,17 +1,36 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import MovieCard from "../components/MovieCard"
 import "../css/Home.css"
+import { getPopularMovies } from "../services/api"
 
 
 export default function Home() {
 
     const [searchQuery, setSearchQuery] = useState("")
+    const [movies, setMovies] = useState([])
+    const [error , setError] = useState(null)
+    const [loading , setLoading] = useState(true)
 
-    const movies = [
-        { id: 1, title: "The Diddy", release_date: "0001" },
-        { id: 2, title: "The Diddy Party", release_date: "0002" },
-        { id: 3, title: "The Diddy Strikes Again", release_date: "0003" }
-    ]
+
+    useEffect( () => {
+
+        const loadMovies = async () => {
+            try {
+                const popularMovies = await getPopularMovies()
+                setMovies(popularMovies)
+            }
+            catch(err) {
+                console.log(err)
+                setError(err)
+            }
+            finally {
+                setLoading(false)
+            }
+        }
+        
+        loadMovies()
+
+    } , [])
 
     function handleSubmit(e) {
         e.preventDefault()
