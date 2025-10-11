@@ -1,11 +1,13 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "../css/Favorites.css";
 import { MovieContext } from "../contexts/MovieContext";
 import MovieCard from "../components/MovieCard";
 
 export default function Favorites() {
-    const { fav, setFav } = useContext(MovieContext)
-    const [isFavEmpty, setFavEmpty] = useState(fav.length === 0)
+    const {fav} = useContext(MovieContext)
+    const [isFavEmpty , setFavEmpty] = useState(fav.length === 0)
+    useEffect(() => {setFavEmpty(fav.length === 0)} , [fav])
+
     return (
         <>
             {isFavEmpty ? (

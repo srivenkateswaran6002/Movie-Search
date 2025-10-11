@@ -4,7 +4,8 @@ export const MovieContext = createContext()
 
 export const MovieProvider = ({ children }) => {
     const [url , setUrl ] = useState({anime : "" , other : ""})
-    const [fav , setFav] = useState({})
+    const [fav , setFav] = useState([])
+
     return (
         <MovieContext.Provider value={{url , setUrl , fav , setFav}} >
             { children }

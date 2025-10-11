@@ -3,12 +3,13 @@ import "../css/MovieCard.css"
 import { MovieContext } from "../contexts/MovieContext"
 
 const img_url = import.meta.env.VITE_IMG_URL
-const anime_id = 16
 
 export default function MovieCard({ movie }) {
     const [star, setStar] = useState("⭐")
     const [isAnime, setIsAnime] = useState(false)
-    const { url, setUrl } = useContext(MovieContext)
+    const { url } = useContext(MovieContext)
+    const {fav , setFav} = useContext(MovieContext)
+
     useEffect(() => {
         const title = movie.title?.toLowerCase() || "";
         const original = movie.original_title?.toLowerCase() || "";
@@ -29,12 +30,11 @@ export default function MovieCard({ movie }) {
 
 
     function favorite() {
-        if (star == "⭐") {
-            setStar("🌟")
-        }
-        else {
-            setStar("⭐")
-        }
+        setStar(prev => prev === "⭐" ? "🌟" : "⭐")
+
+        if (fav.some(m => m.id === movie.id)) setFav(prevFav => prevFav.filter(m => m.id !== movie.id))
+        else setFav(prevFav => [...prevFav, movie])
+
     }
 
     return (
