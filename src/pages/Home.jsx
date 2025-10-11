@@ -12,41 +12,36 @@ export default function Home() {
     const [loading , setLoading] = useState(true)
     const [clear , setClear] = useState(true)
 
-
-    useEffect( () => {
-
-        const loadMovies = async () => {
-            try {
-                const popularMovies = await getPopularMovies()
-                setMovies(popularMovies)
-                setError(null)
-            }
-            catch(err) {
-                console.log(err)
-                setError("Failed to load movies...")
-            }
-            finally {
-                setLoading(false)
-            }
+    const loadMovies = async () => {
+        try {
+            const popularMovies = await getPopularMovies()
+            setMovies(popularMovies)
+            setError(null)
         }
+        catch (err) {
+            console.log(err)
+            setError("Failed to load movies...")
+        }
+        finally {
+            setLoading(false)
+        }
+    }
 
-        loadMovies()
-
-    } , [clear])
+    useEffect(() => {loadMovies()} , [])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        if(!searchQuery.trim() || loading) return
-        
+        if (!searchQuery.trim() || loading) return
+
         setLoading(true)
         try {
             const results = await searchMovies(searchQuery)
             setMovies(results)
             setError(null)
         }
-        catch(err) {
+        catch (err) {
             console.log(err)
-            setError("Failed to set movies...")
+            setError("Failed to search movies...")
         }
         finally {
             setLoading(false)
@@ -55,18 +50,25 @@ export default function Home() {
         setSearchQuery("")
     }
 
+    const handleClear = (e) => {
+        e.preventDefault()
+        setClear(!clear)
+        loadMovies()
+
+    }
+
     return (
         <>
             <div className="home">
                 <form className="search-form" >
-                    <input type="text" placeholder="Search For Movies..." className="search-input" value={searchQuery} onChange={(e) => {setSearchQuery(e.target.value)}} />
+                    <input type="text" placeholder="Search For Movies..." className="search-input" value={searchQuery} onChange={(e) => { setSearchQuery(e.target.value) }} />
                     <button onClick={(e) => handleSubmit(e)} className="search-button">Search</button>
-                    <button className="search-button" onClick={() => setClear(!clear)}>Clear</button>
+                    <button className="search-button" onClick={(e) => {handleClear(e)}}>Clear</button>
                 </form>
 
                 {error && <div className="error-message">{error}</div>}
 
-                {loading ? <div className="loading" >Loading...</div> : 
+                {loading ? <div className="loading" >Loading...</div> :
                     <div className="movie-grid">
                         {movies.map((x) => {
                             return <MovieCard movie={x} key={x.id} />
