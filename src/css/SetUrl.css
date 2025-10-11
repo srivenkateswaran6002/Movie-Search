@@ -1,4 +1,4 @@
-/* ====== Overall Container ====== */
+/* ====== Overall Body ====== */
 body {
   background: linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 100%);
   color: #fff;
@@ -7,13 +7,12 @@ body {
   padding: 0;
 }
 
-/* ====== Component Layout ====== */
+/* ====== Labels Container ====== */
 label {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   gap: 0.5rem;
-  margin: 1.5rem auto;
+  margin: 1rem auto;
   width: 90%;
   max-width: 500px;
   font-size: 1.1rem;
@@ -44,7 +43,39 @@ input[type="url"]:focus {
   box-shadow: 0 0 10px rgba(229, 9, 20, 0.4);
 }
 
-/* ====== Animation ====== */
+/* ====== Display Labels for Current URLs ====== */
+label:nth-last-of-type(2),
+label:nth-last-of-type(1) {
+  background-color: rgba(255, 255, 255, 0.02);
+  color: #ffffff;
+  font-weight: 500;
+  padding: 1rem;
+  border-radius: 10px;
+  text-align: center;
+}
+
+/* ====== Set URL Button ====== */
+.set-button {
+  display: block;
+  margin: 2rem auto 1rem auto; /* center button */
+  padding: 0.75rem 1.5rem;
+  background-color: #e50914;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  white-space: nowrap;
+}
+
+.set-button:hover {
+  background-color: #ff1f1f;
+  transform: scale(1.05);
+}
+
+/* ====== Fade-in Animation ====== */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -56,7 +87,7 @@ input[type="url"]:focus {
   }
 }
 
-/* ====== Responsive Adjustments ====== */
+/* ====== Responsive ====== */
 @media (max-width: 500px) {
   label {
     width: 95%;
@@ -65,5 +96,10 @@ input[type="url"]:focus {
 
   input[type="url"] {
     font-size: 0.95rem;
+  }
+
+  .set-button {
+    width: 90%;
+    font-size: 1rem;
   }
 }

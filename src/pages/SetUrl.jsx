@@ -1,19 +1,30 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "../css/SetUrl.css";
+import { MovieContext } from "../contexts/MovieContext";
 
 
 export default function SetUrl (){
-    // const [url , setUrl ] = useState({anime : "" , other : ""}) use context
-    useEffect(() => {
-        console.log(url)
-    } , [url])
+    const {url , setUrl } = useContext(MovieContext)
+    const [ani , setAni] = useState("")
+    const [oth , setOth] = useState("")
+    
+    const handleURL = () => {
+
+        if (ani.trim() != "" && oth.trim() != "") {
+            setUrl({...url , anime : ani , other : oth})
+        }
+
+    }
 
     return (
         <>
-        <label>Enter URL for Anime : <input type="url" onChange={(e) => setUrl({...url , anime : e.target.value})} /></label>
-        <label>Enter URL for Other :<input type="url" onChange={(e) => setUrl({...url , other : e.target.value})} /></label>
-        <label>Anime : {url.anime}</label>
-         <label>Others : {url.other}</label>
+
+        <label>Enter URL Prefix for Anime : <input type="url" value={ani} onChange={(e) => setAni(e.target.value)} /></label>
+        <label>Enter URL Prefix for Other :<input type="url" value={oth} onChange={(e) => setOth(e.target.value)} /></label>
+        {url.anime == "" ? <></> : <label>Anime : {url.anime}</label>}
+        {url.other == "" ? <></> : <label>Others : {url.other}</label>}
+        <button onClick={handleURL} className="set-button">Set URL</button>
+
         </>
     )
 }

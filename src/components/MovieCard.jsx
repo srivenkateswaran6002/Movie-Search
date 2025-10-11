@@ -1,23 +1,34 @@
-import { useState , useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import "../css/MovieCard.css"
+import { MovieContext } from "../contexts/MovieContext"
 
 const img_url = import.meta.env.VITE_IMG_URL
 const anime_id = 16
 
-export default function MovieCard({movie}){
-    const [star , setStar] = useState("⭐")
-    const [isAnime , setIsAnime] = useState(false)
-    // use context - url
+export default function MovieCard({ movie }) {
+    const [star, setStar] = useState("⭐")
+    const [isAnime, setIsAnime] = useState(false)
+    const { url, setUrl } = useContext(MovieContext)
     useEffect(() => {
-  if (movie.genre_ids.includes(anime_id)) {
-    setIsAnime(true);
-  } else {
-    setIsAnime(false);
-  }
-  }, [movie]);
+        const title = movie.title?.toLowerCase() || "";
+        const original = movie.original_title?.toLowerCase() || "";
+        const genres = movie.genre_ids || [];
+
+        if (
+            genres.includes(16) || 
+            genres.includes(10751) || // Family
+            title.includes("anime") ||
+            original.includes("anime")
+        ) {
+            setIsAnime(true);
+        } else {
+            setIsAnime(false);
+        }
+    }, [movie]);
 
 
-    function favorite(){
+
+    function favorite() {
         if (star == "⭐") {
             setStar("🌟")
         }
@@ -28,18 +39,18 @@ export default function MovieCard({movie}){
 
     return (
         <>
-        <div className="movie-card">
-            <div className="movie-poster" onClick={(e) => {isAnime ? window.open("https://www.y.com") : window.open("https://www.z.com")}}>
-                <img src={`${img_url}${movie.poster_path}`} alt={movie.title} />
-                <div className="movie-overlay">
-                    <button className="favorite-btn" onClick={(e) => {e.stopPropagation();favorite()}}>{star}</button>
+            <div className="movie-card">
+                <div className="movie-poster" onClick={(e) => { isAnime ? window.open(`${url.anime}${movie.title}`) : window.open(`${url.other}${movie.title}`) }}>
+                    <img src={`${img_url}${movie.poster_path}`} alt={movie.title} />
+                    <div className="movie-overlay">
+                        <button className="favorite-btn" onClick={(e) => { e.stopPropagation(); favorite() }}>{star}</button>
+                    </div>
+                </div>
+                <div className="movie-info">
+                    <h3>{movie.title}</h3>
+                    <p>{movie.release_date}</p>
                 </div>
             </div>
-            <div className="movie-info">
-                <h3>{movie.title}</h3>
-                <p>{movie.release_date}</p>
-            </div>
-        </div>
         </>
     )
 }
