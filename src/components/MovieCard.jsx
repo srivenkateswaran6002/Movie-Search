@@ -25,7 +25,9 @@ export default function MovieCard({ movie }) {
         } else {
             setIsAnime(false);
         }
-    }, [movie]);
+
+        if (fav.some(m => m.id === movie.id)) setStar("🌟")
+    }, [])
 
 
 
@@ -40,7 +42,7 @@ export default function MovieCard({ movie }) {
     return (
         <>
             <div className="movie-card">
-                <div className="movie-poster" onClick={(e) => { isAnime ? window.open(`${url.anime}${movie.title}`) : window.open(`${url.other}${movie.title}`) }}>
+                <div className="movie-poster" onClick={() => { isAnime ? window.open(`${url.anime}${movie.title}`) : window.open(`${url.other}${movie.title}`) }}>
                     <img src={`${img_url}${movie.poster_path}`} alt={movie.title} />
                     <div className="movie-overlay">
                         <button className="favorite-btn" onClick={(e) => { e.stopPropagation(); favorite() }}>{star}</button>
